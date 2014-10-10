@@ -1,32 +1,23 @@
 package main;
 
-import java.util.concurrent.TimeUnit;
-
 public abstract class LoopTask {
 	
-    private float mSeconds, mForward, mBackward, mInterpolate;
-    private long mMillis, mNanos, mMicros, mLastTime, mCurrentTime;
+    // Frame speed
+    private final int FPS = 60;
+    private final int FRAME_PERIOD = 1000 / FPS;
+    private final int MAX_FRAME_SKIPS = 5;
 
-    private long mUpdateRate;   // The number of nanoseconds allocated to updating the game state
-    private long mDrawRate;     // The number of nanoseconds allocated to drawing
-    private int mMaxUpdates;    // The max amount of states updates that can occur before drawing
-    private boolean mCanSleep;  // Allows the loop to sleep if time is left over at the loop's end
-
-    private long mUpdateTime;   // The number of nanoseconds between update calls
-    private long mDrawTime;     // The amount of nanoseconds since in the last update call
+    // Frame timing
+    private long mStartTime;
+    private long mDrawTime;
+    private int mSleepTime;
+    private int mFramesSkipped;
 	
 	private boolean mIsRunning;
 	
 	private Thread mThread;
 	
-	public LoopTask(int maxUpdates, int updateRate, int drawRate, TimeUnit timeUnit, boolean canSleep) {
-        mUpdateRate = timeUnit.toNanos(updateRate);
-        mDrawRate = timeUnit.toNanos(drawRate);
-        mMaxUpdates = maxUpdates;
-        mCanSleep = canSleep;
-
-        setElapsed(mUpdateRate);
-        
+	public LoopTask() {
 		mIsRunning = true;
 		mThread = new Thread(new LoopRunnable());
 		mThread.start();
@@ -41,64 +32,38 @@ public abstract class LoopTask {
 		@Override
 		public void run() {
 			while(mIsRunning) {
-		        long nanosElapsed = tick();
-		        mUpdateTime += nanosElapsed;
+		        // Stores the time when rendering begins
+		        mStartTime = System.currentTimeMillis();
+		        mFramesSkipped = 0;
+		        
+		        onProcessInput();
+		        onUpdateLogic();
+		        onDraw();
+		        
+		        // Calculates how long the thread can sleep for
+		        mSleepTime = (int)(FRAME_PERIOD - mDrawTime);
 
-		        int updateCount = 0;
-		        while (mUpdateTime >= mUpdateRate && updateCount < mMaxUpdates) {
-		            onProcessInput();
-		            onUpdateLogic();
-		            updateCount ++;
-		            mUpdateTime -= mUpdateRate;
-		        }
-
-		        mDrawTime += nanosElapsed;
-		        int drawCount = 0;
-		        if (mDrawTime >= mDrawRate || updateCount == 0) {
-		            mInterpolate = getStateInterpolation();
-		            mForward = mInterpolate * mSeconds;
-		            mBackward = mForward - mSeconds;
-		            onDraw();
-		            drawCount ++;
-		            mDrawTime -= (mDrawRate == 0 ? mDrawTime : mDrawRate);
-		        }
-
-		        if (mCanSleep && drawCount == 0 && updateCount == 0) {
-		            long actualTime = mUpdateTime + getElapsedSinceTick();
-		            long sleep = (mUpdateRate - actualTime) / 1000000L;
-		            if (sleep > 1) {
-		                try {
-		                    Thread.sleep(sleep - 1);
-		                }
-		                catch (Exception e) { }
+		        /**
+		         * Everything is running smoothly. The thread can sleep off the rest of the frame period.
+		         */
+		        if(mSleepTime > 0) {
+		            try {
+		                Thread.sleep(mSleepTime);
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
 		            }
+		        }
+
+		        /**
+		         * Catch up is required in this case, logic is updated and rendering does not occur until
+		         * sleep time is below the FPS cap again.
+		         */
+		        while(mSleepTime < 0 && mFramesSkipped < MAX_FRAME_SKIPS) {
+		            onUpdateLogic();
+		            mSleepTime += FRAME_PERIOD;
+		            mFramesSkipped ++;
 		        }
 			}
 		}
 	}
-	
-    protected final float interpolate(float lastPosition, float currentPosition) {
-        return (currentPosition - lastPosition) * mInterpolate + lastPosition;
-    }
-
-    private final long tick() {
-        mLastTime = mCurrentTime;
-        mCurrentTime = System.nanoTime();
-        return (mCurrentTime - mLastTime);
-    }
-
-    private final void setElapsed(long nanosElapsed) {
-        mNanos = nanosElapsed;
-        mMicros = nanosElapsed / 1000L;
-        mMillis = nanosElapsed / 1000000L;
-        mSeconds = (float)(nanosElapsed * 0.000000001);
-    }
-
-    private final long getElapsedSinceTick() {
-        return (System.nanoTime() - mCurrentTime);
-    }
-
-    private final float getStateInterpolation() {
-        return (float)((double)mUpdateTime / (double)mUpdateRate);
-    }
 }

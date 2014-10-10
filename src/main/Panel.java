@@ -16,7 +16,7 @@ public class Panel extends JPanel{
 		setFocusable(true);
 		setPreferredSize(new Dimension(Frame.getSize()));
 		
-		mLoop = new LoopTask(3000, 40000, 20000, TimeUnit.MILLISECONDS, true) {
+		mLoop = new LoopTask() {
 
 			@Override
 			protected void onProcessInput() {
@@ -25,7 +25,9 @@ public class Panel extends JPanel{
 
 			@Override
 			protected void onUpdateLogic() {
-				x+=1;
+				if(x < getWidth() - 30) {
+					x ++;
+				}
 				System.out.println(x);
 			}
 
