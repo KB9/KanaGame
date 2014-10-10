@@ -1,6 +1,6 @@
 package main;
 
-public class Tile {
+public class Tile extends Sprite {
 	
 	private int mTileSize;
 
