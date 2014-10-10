@@ -1,5 +1,8 @@
 package main;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import javax.swing.JFrame;
 
 public class Frame {
@@ -11,6 +14,9 @@ public class Frame {
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 		
+        GraphicsDevice d = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        if (d.isFullScreenSupported()) {
+             d.setFullScreenWindow(f);
+        }
 	}
-
 }
