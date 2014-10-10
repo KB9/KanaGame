@@ -15,7 +15,10 @@ public class Level {
 		
 		for(int column = 0; column < mLevelSize; column ++) {
 			for(int row = 0; row < mLevelSize; row ++) {
-				mLevelTiles[column][row] = new Tile(TILE_SIZE);
+				Tile newTile = new Tile(TILE_SIZE);
+				newTile.setX(column * TILE_SIZE);
+				newTile.setY(row * TILE_SIZE);
+				mLevelTiles[column][row] = newTile;
 			}
 		}
 	}
