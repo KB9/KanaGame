@@ -23,7 +23,7 @@ public class Level {
 	public void draw(Graphics2D g2d) {
 		for(int column = 0; column < mLevelSize; column ++) {
 			for(int row = 0; row < mLevelSize; row ++) {
-				Tile currentTile = mLevelTiles[column][row];
+				Tile currentTile = mLevelTiles[column][row];//t
 				currentTile.draw(g2d);
 			}
 		}
