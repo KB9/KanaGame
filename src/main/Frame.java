@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
@@ -27,4 +29,6 @@ public class Frame {
 		return new Dimension(f.getWidth(), f.getHeight());
 		
 	}
+	
 }
+
