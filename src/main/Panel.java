@@ -10,22 +10,12 @@ import javax.swing.JPanel;
 public class Panel extends JPanel{
 	
 	private LoopTask mLoop;
-	private Sprite a, b;
 	int x = 1;
 	public Panel()
 	{
 		setFocusable(true);
 		setPreferredSize(new Dimension(Frame.getSize()));
 		
-		a = new Sprite();
-		a.setImage("images/square.png");
-		b = new Sprite();
-		b.setImage("images/square.png");
-		
-		a.setX(10);
-		b.setX(800);
-		a.setY(10);
-		b.setY(10);
 		mLoop = new LoopTask() {
 
 			@Override
@@ -35,9 +25,10 @@ public class Panel extends JPanel{
 
 			@Override
 			protected void onUpdateLogic() {
-				b.Move(-1, 0);
-				if(b.Intersects(a))
-					System.out.println("INTERSECTS");
+				if(x < getWidth() - 30) {
+					x ++;
+				}
+				System.out.println(x);
 			}
 
 			@Override
@@ -50,8 +41,8 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		a.draw(g2d);
-		b.draw(g2d);
+		//image = new BufferedImage(, arg1, arg2)
+		g2d.fillRect(x, 5, 123,512);
 		
 	}
 
