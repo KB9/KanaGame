@@ -4,20 +4,20 @@ import java.awt.Graphics2D;
 
 public class Level {
 	
-	private final int TILE_SIZE = 64;
-	
 	private Tile[][] mLevelTiles;
 	private int mLevelSize;
+	private int mTileSize;
 
-	public Level(int levelSize) {
+	public Level(int levelSize, int tileSize) {
 		mLevelSize = levelSize;
 		mLevelTiles = new Tile[mLevelSize][mLevelSize];
 		
 		for(int column = 0; column < mLevelSize; column ++) {
 			for(int row = 0; row < mLevelSize; row ++) {
-				Tile newTile = new Tile(TILE_SIZE);
-				newTile.setX(column * TILE_SIZE);
-				newTile.setY(row * TILE_SIZE);
+				Tile newTile = new Tile(tileSize);
+				newTile.setX(column * tileSize);
+				newTile.setY(row * tileSize);
+				newTile.setImage("square.png");
 				mLevelTiles[column][row] = newTile;
 			}
 		}

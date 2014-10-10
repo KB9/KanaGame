@@ -23,7 +23,7 @@ public class Sprite {
 	}
 
 	public void setImage(String s) {
-		this.img = new ImageIcon(getClass().getResource(s)).getImage();
+		this.img = new ImageIcon(getClass().getResource("images/" + s)).getImage();
 		r = new Rectangle(getX(), getY(), img.getWidth(null), img.getHeight(null));
 	}
 	
