@@ -24,7 +24,6 @@ public class Level {
 		
 		mLevelTiles = new Tile[mLevelTileWidth][mLevelTileHeight];
 		mSpriteManager = new LevelSpriteManager();
-		//mCamera = new Camera(viewWidth, viewHeight, mLevelTileWidth * tileSize, mLevelTileHeight * tileSize);
 		
 		fh = new FileHandling();
 		indices = fh.readFile();
@@ -34,9 +33,13 @@ public class Level {
 		for(int column = 0; column < mLevelTileWidth; column ++) {
 			for(int row = 0; row < mLevelTileHeight; row ++) {
 				Tile newTile = new Tile(tileSize);
+<<<<<<< HEAD
 				//newTile.setX(-mCamera.getX() + (column * tileSize));
 				//newTile.setY(-mCamera.getY() + (row * tileSize));
 				newTile.setImage(TileTypes.types[indices[column][row]].getImage());
+=======
+				newTile.setImage(types[indices[column][row]].getImage());
+>>>>>>> origin/master
 				newTile.setSolid(false);
 				
 				setTile(newTile, column, row);

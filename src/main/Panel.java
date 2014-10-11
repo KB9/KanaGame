@@ -34,8 +34,7 @@ public class Panel extends JPanel{
 			@Override
 			protected void onProcessInput() {
 				
-				InputKey key;
-				while((key = mInputQueue.getNextKey()) != null) {
+				for(InputKey key : mInputQueue.getPressedKeys()) {
 					switch(key.getArrowKey()) {
 					case 0:
 						mLevel.panCamera(0, -4);
@@ -51,6 +50,25 @@ public class Panel extends JPanel{
 						break;
 					}
 				}
+				/*
+				InputKey key;
+				while((key = mInputQueue.getNextKey()) != null) {
+					switch(key.getKeyCode()) {
+					case 0:
+						mLevel.panCamera(0, -4);
+						break;
+					case 1:
+						mLevel.panCamera(-4, 0);
+						break;
+					case 2:
+						mLevel.panCamera(0, 4);
+						break;
+					case 3:
+						mLevel.panCamera(4, 0);
+						break;
+					}
+				}
+				*/
 				
 				InputXY click;
 				while((click = mInputQueue.getNextXY()) != null) {

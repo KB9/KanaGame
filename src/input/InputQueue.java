@@ -2,18 +2,20 @@ package input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class InputQueue {
 
 	private static LinkedList<InputXY> mClickQueue;
-	private static LinkedList<InputKey> mKeyQueue;
+	private static ArrayList<InputKey> mPressedKeyList;
 	
 	private KeyEventListener mKeyEventListener;
 	
 	public InputQueue() {
 		mClickQueue = new LinkedList<InputXY>();
-		mKeyQueue = new LinkedList<InputKey>();
+		mPressedKeyList = new ArrayList<InputKey>();
 		
 		mKeyEventListener = new KeyEventListener();
 	}
@@ -23,7 +25,13 @@ public class InputQueue {
 	}
 	
 	public void addKey(InputKey input) {
-		mKeyQueue.add(input);
+		input.setPressed(true);
+		mPressedKeyList.add(input);
+	}
+	
+	public void removeKey(InputKey input) {
+		input.setPressed(false);
+		mPressedKeyList.remove(input);
 	}
 	
 	public InputXY getNextXY() {
@@ -33,30 +41,39 @@ public class InputQueue {
 		return null;
 	}
 	
-	public InputKey getNextKey() {
-		if(!mKeyQueue.isEmpty()) {
-			return mKeyQueue.removeFirst();
-		}
-		return null;
+	public ArrayList<InputKey> getPressedKeys() {
+		return mPressedKeyList;
 	}
 	
 	public KeyEventListener getKeyListener() {
 		return mKeyEventListener;
 	}
 	
-	public class KeyEventListener implements KeyListener {
+	private class KeyEventListener implements KeyListener {
 
 		@Override
-		public void keyPressed(KeyEvent event) {
-			mKeyQueue.add(new InputKey(event));
+		public synchronized void keyPressed(KeyEvent event) {
+			InputKey key = new InputKey(event);
+			key.setPressed(true);
+			addKey(key);
 		}
 
 		@Override
 		public void keyReleased(KeyEvent event) {
+			InputKey key = new InputKey(event);
+			
+			// Iterator removal prevents concurrent modification exceptions...
+			Iterator<InputKey> iterator = mPressedKeyList.iterator();
+			while(iterator.hasNext()) {
+				InputKey pressedKey = iterator.next();
+				if(key.equals(pressedKey)) {
+					iterator.remove();
+				}
+			}
 		}
 
 		@Override
 		public void keyTyped(KeyEvent event) {
-		}	
+		}
 	}
 }
