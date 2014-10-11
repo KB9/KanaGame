@@ -28,6 +28,7 @@ public class Panel extends JPanel{
 		
 		mInputQueue = new InputQueue();
 		addKeyListener(mInputQueue.getKeyListener());
+		addMouseListener(mInputQueue.getMouseListener());
 		
 		mLevel = new Level(100, 80, 16);
 		mLevel.setCameraView(getWidth(), getHeight());
@@ -59,6 +60,7 @@ public class Panel extends JPanel{
 				Iterator<InputXY> xyIterator = mInputQueue.getXYs().iterator();
 				while(xyIterator.hasNext()) {
 					InputXY xy = xyIterator.next();
+					
 				}
 			}
 

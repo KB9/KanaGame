@@ -2,9 +2,10 @@ package input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class InputQueue {
 
@@ -12,12 +13,14 @@ public class InputQueue {
 	private static ArrayList<InputKey> mPressedKeyList;
 	
 	private KeyEventListener mKeyEventListener;
+	private MouseEventListener mMouseEventListener;
 	
 	public InputQueue() {
 		mXYList = new ArrayList<InputXY>();
 		mPressedKeyList = new ArrayList<InputKey>();
 		
 		mKeyEventListener = new KeyEventListener();
+		mMouseEventListener = new MouseEventListener();
 	}
 	
 	public void addXY(InputXY input) {
@@ -48,6 +51,10 @@ public class InputQueue {
 	
 	public KeyEventListener getKeyListener() {
 		return mKeyEventListener;
+	}
+	
+	public MouseEventListener getMouseListener() {
+		return mMouseEventListener;
 	}
 	
 	private class KeyEventListener implements KeyListener {
@@ -86,5 +93,30 @@ public class InputQueue {
 		@Override
 		public void keyTyped(KeyEvent event) {
 		}
+	}
+	
+	private class MouseEventListener implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent event) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent event) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent event) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent event) {
+			addXY(new InputXY(event));
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent event) {
+		}
+		
 	}
 }

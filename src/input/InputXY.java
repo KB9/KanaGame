@@ -1,12 +1,14 @@
 package input;
 
+import java.awt.event.MouseEvent;
+
 public class InputXY {
 
 	private int mX, mY;
 	
-	public InputXY(int x, int y) {
-		mX = x;
-		mY = y;
+	public InputXY(MouseEvent event) {
+		mX = event.getX();
+		mY = event.getY();
 	}
 	
 	public int getX() {
