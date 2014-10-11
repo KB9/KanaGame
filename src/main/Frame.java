@@ -15,13 +15,9 @@ public class Frame {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(new Panel());
 		f.pack();
+		f.setResizable(false);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
-		
-        GraphicsDevice d = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        if (d.isFullScreenSupported()) {
-             d.setFullScreenWindow(f);
-        }
 	}
 	
 	public static Dimension getSize(){
