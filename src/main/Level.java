@@ -14,6 +14,7 @@ public class Level {
 	private Camera mCamera;
 	private Tile[] types = new Tile[10];
 	private int[][] indices;
+	private FileHandling fh = new FileHandling();
 
 	public Level(int levelTileWidth, int levelTileHeight, int tileSize) {
 		mTileSize = tileSize;
