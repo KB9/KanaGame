@@ -1,16 +1,10 @@
 package main;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
-
-import javax.swing.ImageIcon;
 
 public class Sprite {
 	private int x, y, dx, dy;
-	//private Image img;
 	private ScaledImage mImage;
 	private Rectangle r;
 
@@ -21,7 +15,7 @@ public class Sprite {
 	
 	public void draw(Graphics2D g){
 		r.setLocation(getX(), getY());
-		g.drawImage(mImage.getImage(), getX(), getY(), null);
+		mImage.drawImage(g, getX(), getY());
 	}
 
 	public void setImage(String s) {
@@ -34,6 +28,7 @@ public class Sprite {
 			return true;
 		return false;
 	}
+	
 	public Rectangle getRect(){
 		return r;
 	}

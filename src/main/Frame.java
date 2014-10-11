@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import util.ScaleUtil;
+
 public class Frame {
 	
 	static JFrame f;

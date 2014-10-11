@@ -6,6 +6,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import util.ScaleUtil;
+
 public class ScaledImage {
 	
 	private Image mImage;
@@ -15,6 +17,10 @@ public class ScaledImage {
 		mImage = new ImageIcon(getClass().getResource("images/" + filePath)).getImage();
 		Dimension unscaledDimension = new Dimension(mImage.getWidth(null), mImage.getHeight(null));
 		mImageDimension = ScaleUtil.scale(unscaledDimension);
+	}
+	
+	public void drawImage(Graphics2D g2d, int x, int y) {
+		g2d.drawImage(mImage, x, y, null);
 	}
 	
 	public Image getImage() {
