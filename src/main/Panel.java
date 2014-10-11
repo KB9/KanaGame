@@ -1,41 +1,53 @@
 package main;
 
+import input.InputKey;
+import input.InputObject;
+import input.InputQueue;
+import input.InputXY;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.util.Random;
 
 import javax.swing.JPanel;
 
 public class Panel extends JPanel{
 	
 	private LoopTask mLoop;
-	private KeyEventListener mKeyEventListener;
+	//private KeyEventListener mKeyEventListener;
+	private InputQueue mInputQueue;
 	private Level mLevel;
 	
 	public Panel()
 	{
 		setFocusable(true);
 		
-		mKeyEventListener = new KeyEventListener();
-		addKeyListener(mKeyEventListener);
+		//mKeyEventListener = new KeyEventListener();
+		//addKeyListener(mKeyEventListener);
+		mInputQueue = new InputQueue();
+		addKeyListener(mInputQueue.mKeyEventListener);
 		
-<<<<<<< HEAD
-		mLevel = new Level(80, 60, 16);
-=======
-		mLevel = new Level(45, 70, 16);
->>>>>>> origin/master
+		mLevel = new Level(80, 100, 16);
 
 		mLoop = new LoopTask() {
 
 			@Override
 			protected void onProcessInput() {
-				mKeyEventListener.processInput();
+				InputObject input;
+				while((input = mInputQueue.getNext()) != null) {
+					// Work with your key characters
+					if(input instanceof InputKey) {
+						
+					}
+					// Work with your xy mouse clicks
+					else if(input instanceof InputXY) {
+						
+					}
+				}
 			}
 
 			@Override
 			protected void onUpdateLogic() {
-				Random random = new Random();
 				mLevel.panCamera(0, 1);
 			}
 
