@@ -38,7 +38,7 @@ public class Level {
 				//newTile.setY(-mCamera.getY() + (row * tileSize));
 				newTile.setImage(types[indices[column][row]].getImage());
 				newTile.setSolid(false);
-				mLevelTiles[column][row] = newTile;
+				setTile(newTile, column, row);
 			}
 		}
 	}
@@ -140,6 +140,12 @@ public class Level {
 	
 	public int getLevelTileHeight(){
 		return mLevelTileHeight;
+	}
+	
+	public void setTile(Tile tile, int column, int row) {
+		if(column >= 0 && column < mLevelTileWidth && row >= 0 && row < mLevelTileHeight) {
+			mLevelTiles[column][row] = tile;
+		}
 	}
 	
 	public Tile getTile(int column, int row) {
