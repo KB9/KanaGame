@@ -10,7 +10,8 @@ import javax.swing.ImageIcon;
 
 public class Sprite {
 	private int x, y, dx, dy;
-	private Image img;
+	//private Image img;
+	private ScaledImage mImage;
 	private Rectangle r;
 
 	public Sprite() {
@@ -20,13 +21,12 @@ public class Sprite {
 	
 	public void draw(Graphics2D g){
 		r.setLocation(getX(), getY());
-		g.drawImage(getImage(), getX(), getY(), null);
+		g.drawImage(mImage.getImage(), getX(), getY(), null);
 	}
 
 	public void setImage(String s) {
-		this.img = new ImageIcon(getClass().getResource("images/" + s)).getImage();
-		ScaleUtil.getScaledDimension(new Dimension(img.getWidth(null), img.getHeight(null)), Toolkit.getDefaultToolkit().getScreenSize());
-		r = new Rectangle(getX(), getY(), img.getWidth(null), img.getHeight(null));
+		mImage = new ScaledImage(s);
+		r = new Rectangle(getX(), getY(), mImage.getSize().width, mImage.getSize().height);
 	}
 	
 	public boolean Intersects(Sprite s){
@@ -37,8 +37,8 @@ public class Sprite {
 	public Rectangle getRect(){
 		return r;
 	}
-	public Image getImage() {
-		return img;
+	public ScaledImage getImage() {
+		return mImage;
 	}
 
 	public int getX() {

@@ -3,13 +3,15 @@ package main;
 import java.awt.Dimension;
 
 public class ScaleUtil {
+	
+	private static Dimension mBoundary;
 
-	public static Dimension getScaledDimension(Dimension imgSize, Dimension boundary) {
+	public static Dimension scale(Dimension imgSize) {
 
 	    int original_width = imgSize.width;
 	    int original_height = imgSize.height;
-	    int bound_width = boundary.width;
-	    int bound_height = boundary.height;
+	    int bound_width = mBoundary.width;
+	    int bound_height = mBoundary.height;
 	    int new_width = original_width;
 	    int new_height = original_height;
 
@@ -30,5 +32,9 @@ public class ScaleUtil {
 	    }
 
 	    return new Dimension(new_width, new_height);
+	}
+	
+	public static void setBoundary(Dimension boundary) {
+		mBoundary = boundary;
 	}
 }
