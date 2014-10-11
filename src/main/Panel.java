@@ -26,7 +26,7 @@ public class Panel extends JPanel{
 		mInputQueue = new InputQueue();
 		addKeyListener(mInputQueue.getKeyListener());
 		
-		mLevel = new Level(200, 200, 16);
+		mLevel = new Level(150, 100, 16);
 		mLevel.setCameraView(getWidth(), getHeight());
 
 		new LoopTask() {

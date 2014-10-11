@@ -36,10 +36,16 @@ public class Camera {
 		int right = mX + mViewWidth + deltaX;
 		int bottom = mY + mViewHeight + deltaX;
 		
-		if(left >= 0 && right <= mBoundsWidth) {
+		if(deltaX < 0 && left >= 0) {
 			mX += deltaX;
 		}
-		if(top >= 0 && bottom <= mBoundsHeight) {
+		if(deltaX > 0 && right <= mBoundsWidth) {
+			mX += deltaX;
+		}
+		if(deltaY < 0 && top >= 0) {
+			mY += deltaY;
+		}
+		if(deltaY > 0 && bottom <= mBoundsHeight) {
 			mY += deltaY;
 		}
 	}

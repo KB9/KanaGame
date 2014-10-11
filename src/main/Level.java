@@ -27,7 +27,7 @@ public class Level {
 		fh = new FileHandling();
 		indices = fh.readFile();
 		types[0] = new Tile();
-		types[0].setInfo("grass.png", false);
+		types[0].setInfo("square.png", false);
 		//types[1].setInfo("wall.png", true);
 		//types[2].setInfo("floor.png", false);
 		
@@ -66,7 +66,10 @@ public class Level {
 		for(int column = tilesStartColumn; column < columnLoopLength; column ++) {
 			for(int row = tilesStartRow; row < rowLoopLength; row ++) {
 				updateTilePosition(column, row);
-				mLevelTiles[column][row].draw(g2d);
+				Tile tile = getTile(column, row);
+				if(tile != null) {
+					tile.draw(g2d);
+				}
 			}
 		}
 	}
@@ -77,9 +80,11 @@ public class Level {
 	 * @param row The row index of the tile
 	 */
 	private void updateTilePosition(int column, int row) {
-		Tile tile = mLevelTiles[column][row];
-		tile.setX(-mCamera.getX() + (column * mTileSize));
-		tile.setY(-mCamera.getY() + (row * mTileSize));
+		Tile tile = getTile(column, row);
+		if(tile != null) {
+			tile.setX(-mCamera.getX() + (column * mTileSize));
+			tile.setY(-mCamera.getY() + (row * mTileSize));
+		}
 	}
 	
 	/**
@@ -138,6 +143,9 @@ public class Level {
 	}
 	
 	public Tile getTile(int column, int row) {
-		return mLevelTiles[column][row];
+		if(column >= 0 && column < mLevelTileWidth && row >= 0 && row < mLevelTileHeight) {
+			return mLevelTiles[column][row];
+		}
+		return null;
 	}
 }
