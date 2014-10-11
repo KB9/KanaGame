@@ -17,11 +17,6 @@ public class Frame {
 		f.pack();
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
-		
-        GraphicsDevice d = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        if (d.isFullScreenSupported()) {
-             d.setFullScreenWindow(f);
-        }
 	}
 	
 	public static Dimension getSize(){
