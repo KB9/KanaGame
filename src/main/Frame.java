@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import util.ScaleUtil;
-
 public class Frame {
 	
 	static JFrame f;
@@ -18,7 +16,6 @@ public class Frame {
 	public static void main(String[] args){
 		f = new JFrame("GAME!!!");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ScaleUtil.setBoundary(Toolkit.getDefaultToolkit().getScreenSize());
 		f.add(new Panel());
 		f.pack();
 		f.setSize(Toolkit.getDefaultToolkit().getScreenSize());

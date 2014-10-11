@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -10,7 +11,7 @@ public class Panel extends JPanel{
 	
 	private LoopTask mLoop;
 	private KeyEventListener mKeyEventListener;
-	private SpriteManager mSpriteManager;
+	private Level mLevel;
 	
 	public Panel()
 	{
@@ -19,8 +20,7 @@ public class Panel extends JPanel{
 		mKeyEventListener = new KeyEventListener();
 		addKeyListener(mKeyEventListener);
 		
-		mSpriteManager = new SpriteManager();
-		mSpriteManager.add(new Level(30, 16));
+		mLevel = new Level(45, 100, 16);
 
 		mLoop = new LoopTask() {
 
@@ -31,7 +31,8 @@ public class Panel extends JPanel{
 
 			@Override
 			protected void onUpdateLogic() {
-				mSpriteManager.translateCamera(1, 1);
+				Random random = new Random();
+				mLevel.panCamera(0, 1);
 			}
 
 			@Override
@@ -44,8 +45,8 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.scale(1920.0/Toolkit.getDefaultToolkit().getScreenSize().getWidth(), 1080.0/Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-		mSpriteManager.drawAll(g2d);
+		g2d.scale(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1280.0, Toolkit.getDefaultToolkit().getScreenSize().getHeight()/720.0);
+		mLevel.drawLevel(g2d);
 	}
 
 }
