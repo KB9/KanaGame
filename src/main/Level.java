@@ -11,9 +11,11 @@ public class Level {
 	public static Tile[][] mLevelTiles;
 	private LevelSpriteManager mSpriteManager = new LevelSpriteManager();
 	private Camera mCamera;
-	private Tile[] types = new Tile[10];
+
 	private int[][] indices;
 	private FileHandling fh;
+	private TileTypes t = new TileTypes();
+	private Buildings b = new Buildings();
 
 	public Level(int levelTileWidth, int levelTileHeight, int tileSize) {
 		mTileSize = tileSize;
@@ -26,21 +28,33 @@ public class Level {
 		
 		fh = new FileHandling();
 		indices = fh.readFile();
-		types[0] = new Tile();
-		types[0].setInfo("square.png", false);
-		//types[1].setInfo("wall.png", true);
-		//types[2].setInfo("floor.png", false);
+		
+		
 		
 		for(int column = 0; column < mLevelTileWidth; column ++) {
 			for(int row = 0; row < mLevelTileHeight; row ++) {
 				Tile newTile = new Tile(tileSize);
 				//newTile.setX(-mCamera.getX() + (column * tileSize));
 				//newTile.setY(-mCamera.getY() + (row * tileSize));
-				newTile.setImage(types[indices[column][row]].getImage());
+				newTile.setImage(TileTypes.types[indices[column][row]].getImage());
 				newTile.setSolid(false);
+				
 				setTile(newTile, column, row);
 			}
 		}
+		addBuilding(b);
+		
+	}
+	
+	public void addBuilding(Buildings a){
+		for(int y = 0; y < a.getBuilding().length; y++){
+			for(int x = 0; x < a.getBuilding().length; x++){
+				Tile newTile = new Tile(mTileSize);
+				newTile.setInfo(a.building[x][y].getImage(), a.building[x][y].getSolid());
+				setTile(newTile, x + a.getX(), y + a.getY());		
+			}
+		}
+		
 	}
 	
 	public void setCameraView(int viewWidth, int viewHeight) {
