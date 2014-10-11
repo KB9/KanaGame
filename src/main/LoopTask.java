@@ -53,6 +53,8 @@ public abstract class LoopTask {
 		                e.printStackTrace();
 		            }
 		        }
+		        
+		        GameClock.tick(FRAME_PERIOD);
 
 		        /**
 		         * Catch up is required in this case, logic is updated and rendering does not occur until

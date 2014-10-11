@@ -5,6 +5,7 @@ import input.InputQueue;
 import input.InputXY;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -71,10 +72,15 @@ public class Panel extends JPanel{
 		};
 	}
 	
+	Font font = new Font("Calibri", Font.PLAIN, 32);
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		mLevel.drawLevel(g2d);
+		g2d.setFont(font);
+		String timeString = GameClock.getHours() + ":" + GameClock.getMinutes() + ":" + GameClock.getSeconds();
+		g2d.drawString("TIME: " + timeString, 10, 25);
 	}
 
 }

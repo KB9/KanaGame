@@ -21,7 +21,6 @@ public class InputQueue {
 	}
 	
 	public void addXY(InputXY input) {
-		//mClickQueue.add(input);
 		mXYList.add(input);
 	}
 	
