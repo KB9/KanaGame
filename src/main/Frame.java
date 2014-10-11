@@ -17,9 +17,11 @@ public class Frame {
 		f = new JFrame("GAME!!!");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(new Panel());
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		f.setResizable(false);
+		f.setUndecorated(true);
 		f.pack();
 		f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		f.setResizable(false);
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}

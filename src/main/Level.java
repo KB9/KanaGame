@@ -16,14 +16,14 @@ public class Level {
 	private int[][] indices;
 	private FileHandling fh;
 
-	public Level(int levelTileWidth, int levelTileHeight, int tileSize) {
+	public Level(int levelTileWidth, int levelTileHeight, int tileSize, int viewWidth, int viewHeight) {
 		mTileSize = tileSize;
 		mLevelTileWidth = levelTileWidth;
 		mLevelTileHeight = levelTileHeight;
 		
 		mLevelTiles = new Tile[mLevelTileWidth][mLevelTileHeight];
 		mSpriteManager = new LevelSpriteManager();
-		mCamera = new Camera((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()), mLevelTileWidth * tileSize, mLevelTileHeight * tileSize);
+		mCamera = new Camera(viewWidth, viewHeight, mLevelTileWidth * tileSize, mLevelTileHeight * tileSize);
 		
 		fh = new FileHandling();
 		indices = fh.readFile();
@@ -44,15 +44,31 @@ public class Level {
 		}
 	}
 	
-	public void drawLevel(Graphics2D g2d) {
-		for(int column = 0; column < mLevelTileWidth; column ++) {
-			for(int row = 0; row < mLevelTileHeight; row ++) {
-				Tile tile = mLevelTiles[column][row];
-				tile.setX(-mCamera.getX() + (column * mTileSize));
-				tile.setY(-mCamera.getY() + (row * mTileSize));
-				tile.draw(g2d);
+	public void clipDrawTiles(Graphics2D g2d) {
+		int tilesStartColumn = (mCamera.getX() / mTileSize) + 1;
+		int tilesStartRow = (mCamera.getY() / mTileSize) + 1;
+		int tilesInViewWidth = (mCamera.getViewWidth() / mTileSize) - 1;
+		int tilesInViewHeight = (mCamera.getViewHeight() / mTileSize) - 1;
+		
+		int columnLoopLength = (tilesStartColumn + tilesInViewWidth);
+		int rowLoopLength = (tilesStartRow + tilesInViewHeight);
+		
+		for(int column = tilesStartColumn; column < columnLoopLength; column ++) {
+			for(int row = tilesStartRow; row < rowLoopLength; row ++) {
+				updateTilePosition(column, row);
+				mLevelTiles[column][row].draw(g2d);
 			}
 		}
+	}
+	
+	public void updateTilePosition(int column, int row) {
+		Tile tile = mLevelTiles[column][row];
+		tile.setX(-mCamera.getX() + (column * mTileSize));
+		tile.setY(-mCamera.getY() + (row * mTileSize));
+	}
+	
+	public void drawLevel(Graphics2D g2d) {
+		clipDrawTiles(g2d);
 		mSpriteManager.drawSprites(g2d);
 	}
 	

@@ -1,6 +1,6 @@
 package input;
 
-public class InputXY extends InputObject {
+public class InputXY {
 
 	private int mX, mY;
 	
