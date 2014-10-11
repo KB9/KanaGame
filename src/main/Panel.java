@@ -17,6 +17,7 @@ public class Panel extends JPanel{
 	
 	private InputQueue mInputQueue;
 	private Level mLevel;
+	private Font timeFont = new Font("Calibri", Font.PLAIN, 32);
 	
 	public Panel()
 	{
@@ -72,13 +73,12 @@ public class Panel extends JPanel{
 		};
 	}
 	
-	Font font = new Font("Calibri", Font.PLAIN, 32);
-	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		mLevel.drawLevel(g2d);
-		g2d.setFont(font);
+		
+		g2d.setFont(timeFont);
 		String timeString = GameClock.getHours() + ":" + GameClock.getMinutes() + ":" + GameClock.getSeconds();
 		g2d.drawString("TIME: " + timeString, 10, 25);
 	}
