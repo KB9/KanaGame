@@ -14,7 +14,7 @@ public class Level {
 	private Camera mCamera;
 	private Tile[] types = new Tile[10];
 	private int[][] indices;
-	private FileHandling fh = new FileHandling();
+	private FileHandling fh;
 
 	public Level(int levelTileWidth, int levelTileHeight, int tileSize) {
 		mTileSize = tileSize;
@@ -25,8 +25,9 @@ public class Level {
 		mSpriteManager = new LevelSpriteManager();
 		mCamera = new Camera((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()), mLevelTileWidth * tileSize, mLevelTileHeight * tileSize);
 		
+		fh = new FileHandling();
 		indices = fh.readFile();
-		
+		types[0] = new Tile();
 		types[0].setInfo("grass.png", false);
 		//types[1].setInfo("wall.png", true);
 		//types[2].setInfo("floor.png", false);
@@ -36,8 +37,8 @@ public class Level {
 				Tile newTile = new Tile(tileSize);
 				newTile.setX(-mCamera.getX() + (column * tileSize));
 				newTile.setY(-mCamera.getY() + (row * tileSize));
-				newTile.setInfo(types[indices[column][row]].getImage(), types[indices[column][row]].getSolid());
-				newTile.setImage("square.png");
+				newTile.setImage(types[indices[column][row]].getImage());
+				newTile.setSolid(false);
 				mLevelTiles[column][row] = newTile;
 			}
 		}

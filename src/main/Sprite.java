@@ -27,6 +27,7 @@ public class Sprite {
 	}
 	public void setImage(Image m){
 		mImage = m;
+		r = new Rectangle(getX(), getY(), mImage.getWidth(null), mImage.getHeight(null));
 	}
 	
 	public boolean Intersects(Sprite s){

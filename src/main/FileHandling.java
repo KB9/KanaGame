@@ -12,89 +12,76 @@ public class FileHandling {
 	private Scanner scanner;
 	private BufferedWriter writer;
 	private File file = new File("level.txt");
-	private int[][] tiles = new int[45][70];
+	private int[][] tiles = new int[Level.mLevelTileWidth][Level.mLevelTileHeight];
 
-	
-	public FileHandling()
-	{
-		try
-		{		
-			if(!file.exists())
+	public FileHandling() {
+		try {
+			if (!file.exists())
 				fileDoesNotExist();
-			
+
 			readFile();
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	private void fileDoesNotExist()
-	{
-		try
-		{
+	private void fileDoesNotExist() {
+
+		try {
 			writer = new BufferedWriter(new FileWriter(file));
 			file.createNewFile();
 
-			for(int i = 0; i < Level.mLevelTiles.length; i++){
-				writer.write("0 ");
-			}
-
-			writer.close();
-		} 
-		catch (Exception e)
-		{
-			
-		}
-	}
-	
-	//The high score file is read.
-	public int[][] readFile() 
-	{
-		try 
-		{
-			scanner = new Scanner(new BufferedReader(new FileReader(file)));
-			
-			while(scanner.hasNext())
-			{	
-				for(int i = 0; i < Level.mLevelTileHeight; i++){
-					for(int j = 0; j < Level.mLevelTileWidth; j++){
-						tiles[j][i] = scanner.nextInt();
-					}
+			for (int i = 0; i < Level.mLevelTileWidth; i++) {
+				for (int j = 0; j < Level.mLevelTileHeight; j++) {
+					writer.write("0 ");
+					
 				}
 			}
 
-			
+			writer.close();
+		} catch (Exception e) {
+
 		}
-		catch (Exception e) 
-		{
+	}
+
+	// The high score file is read.
+	public int[][] readFile() {
+		try {
+			scanner = new Scanner(new BufferedReader(new FileReader(file)));
+
+			while (scanner.hasNext()) {
+				for (int i = 0; i < Level.mLevelTileWidth; i++) {
+					for (int j = 0; j < Level.mLevelTileHeight; j++) {
+						tiles[i][j] = scanner.nextInt();
+					}
+				}
+			}
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
+		System.out.println("READ");
 		return tiles;
 
 	}
 
+	public void writeFile() {
 
-	public void writeFile() 
-	{
-
-//		try
-//		{
-//			//writer = new BufferedWriter(new FileWriter(file));
-//			for(int i = 0; i < 5; i++)
-//			{
-//				//writer.write(names[i] + " ");
-//				//writer.write(Player.times[i] + " ");
-//				//writer.write(Player.deaths[i] + " ");
-//			}
-//		//	writer.close();
-//		} 
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
+		// try
+		// {
+		// //writer = new BufferedWriter(new FileWriter(file));
+		// for(int i = 0; i < 5; i++)
+		// {
+		// //writer.write(names[i] + " ");
+		// //writer.write(Player.times[i] + " ");
+		// //writer.write(Player.deaths[i] + " ");
+		// }
+		// // writer.close();
+		// }
+		// catch(IOException e)
+		// {
+		// e.printStackTrace();
+		// }
 	}
 }

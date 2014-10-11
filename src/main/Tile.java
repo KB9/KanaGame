@@ -24,6 +24,10 @@ public class Tile extends Sprite {
 		return solid;
 	}
 	
+	public void setSolid(boolean x){
+		this.solid = x;
+	}
+	
 	public void setInfo(String s, boolean x){
 		setImage(s);
 		this.solid = x;
