@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel{
 	
+	private LoopTask mLoop;
 	private InputQueue mInputQueue;
 	private Level mLevel;
 	
@@ -26,27 +27,26 @@ public class Panel extends JPanel{
 		mInputQueue = new InputQueue();
 		addKeyListener(mInputQueue.getKeyListener());
 		
-		mLevel = new Level(200, 200, 16);
-		mLevel.setCameraView(getWidth(), getHeight());
+		mLevel = new Level(200, 200, 16, getWidth(), getHeight());
 
-		new LoopTask() {
+		mLoop = new LoopTask() {
 
 			@Override
 			protected void onProcessInput() {
 				
 				InputKey key;
 				while((key = mInputQueue.getNextKey()) != null) {
-					switch(key.getArrowKey()) {
-					case 0:
+					switch(key.getCharKey()) {
+					case 'w':
 						mLevel.panCamera(0, -4);
 						break;
-					case 1:
+					case 'a':
 						mLevel.panCamera(-4, 0);
 						break;
-					case 2:
+					case 's':
 						mLevel.panCamera(0, 4);
 						break;
-					case 3:
+					case 'd':
 						mLevel.panCamera(4, 0);
 						break;
 					}
@@ -72,6 +72,7 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		//g2d.scale(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1280.0, Toolkit.getDefaultToolkit().getScreenSize().getHeight()/720.0);
 		mLevel.drawLevel(g2d);
 	}
 
