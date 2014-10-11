@@ -5,9 +5,11 @@ import java.awt.event.KeyEvent;
 public class InputKey {
 	
 	private KeyEvent mEvent;
+	private boolean mIsPressed;
 
 	public InputKey(KeyEvent event) {
 		mEvent = event;
+		mIsPressed = true;
 	}
 	
 	public char getCharKey() {
@@ -30,5 +32,25 @@ public class InputKey {
 		default:
 			return -1;
 		}
+	}
+	
+	public void setPressed(boolean isPressed) {
+		mIsPressed = isPressed;
+	}
+	
+	public boolean getPressed() {
+		return mIsPressed;
+	}
+	
+	private int getKeyCode() {
+		return mEvent.getKeyCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(getKeyCode() == ((InputKey)obj).getKeyCode()) {
+			return true;
+		}
+		return false;
 	}
 }
