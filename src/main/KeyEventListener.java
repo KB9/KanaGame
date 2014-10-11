@@ -33,6 +33,7 @@ public class KeyEventListener implements KeyListener {
 		for(int i = 0; i < mKeyEventList.size(); i ++) {
 			KeyEvent event = mKeyEventList.removeFirst();
 			System.out.println("Char: " + getKeyCharacter(event));
+			// Didn't do anything
 		}
 	}
 }
