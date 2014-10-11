@@ -8,20 +8,27 @@ import java.util.LinkedList;
 
 public class InputQueue {
 
-	private static LinkedList<InputXY> mClickQueue;
+	//private static LinkedList<InputXY> mClickQueue;
+	private static ArrayList<InputXY> mXYList;
 	private static ArrayList<InputKey> mPressedKeyList;
 	
 	private KeyEventListener mKeyEventListener;
 	
 	public InputQueue() {
-		mClickQueue = new LinkedList<InputXY>();
+		//mClickQueue = new LinkedList<InputXY>();
+		mXYList = new ArrayList<InputXY>();
 		mPressedKeyList = new ArrayList<InputKey>();
 		
 		mKeyEventListener = new KeyEventListener();
 	}
 	
 	public void addXY(InputXY input) {
-		mClickQueue.add(input);
+		//mClickQueue.add(input);
+		mXYList.add(input);
+	}
+	
+	public void removeXY(InputXY input) {
+		mXYList.remove(input);
 	}
 	
 	public void addKey(InputKey input) {
@@ -34,15 +41,12 @@ public class InputQueue {
 		mPressedKeyList.remove(input);
 	}
 	
-	public InputXY getNextXY() {
-		if(!mClickQueue.isEmpty()) {
-			return mClickQueue.removeFirst();
-		}
-		return null;
-	}
-	
 	public ArrayList<InputKey> getPressedKeys() {
 		return mPressedKeyList;
+	}
+	
+	public ArrayList<InputXY> getXYs() {
+		return mXYList;
 	}
 	
 	public KeyEventListener getKeyListener() {

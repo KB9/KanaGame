@@ -27,7 +27,7 @@ public class Panel extends JPanel{
 		mInputQueue = new InputQueue();
 		addKeyListener(mInputQueue.getKeyListener());
 		
-		mLevel = new Level(150, 100, 16);
+		mLevel = new Level(100, 80, 16);
 		mLevel.setCameraView(getWidth(), getHeight());
 
 		new LoopTask() {
@@ -35,9 +35,9 @@ public class Panel extends JPanel{
 			@Override
 			protected void onProcessInput() {
 				
-				Iterator<InputKey> iterator = mInputQueue.getPressedKeys().iterator();
-				while(iterator.hasNext()) {
-					InputKey key = iterator.next();
+				Iterator<InputKey> keyIterator = mInputQueue.getPressedKeys().iterator();
+				while(keyIterator.hasNext()) {
+					InputKey key = keyIterator.next();
 					switch(key.getArrowKey()) {
 					case 0:
 						mLevel.panCamera(0, -4);
@@ -54,9 +54,9 @@ public class Panel extends JPanel{
 					}
 				}
 				
-				InputXY click;
-				while((click = mInputQueue.getNextXY()) != null) {
-					// Process click here
+				Iterator<InputXY> xyIterator = mInputQueue.getXYs().iterator();
+				while(xyIterator.hasNext()) {
+					InputXY xy = xyIterator.next();
 				}
 			}
 
