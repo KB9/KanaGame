@@ -6,16 +6,19 @@ public class Level implements SceneDrawable {
 	
 	private int mX, mY;
 	private Tile[][] mLevelTiles;
-	private int mLevelSize;
+	private int mLevelTileHeight;
+	private int mLevelTileWidth;
 	private int mTileSize;
 
-	public Level(int levelSize, int tileSize) {
+	public Level(int levelSizeA, int levelSizeB, int tileSize) {
 		mTileSize = tileSize;
-		mLevelSize = levelSize;
-		mLevelTiles = new Tile[mLevelSize][mLevelSize];
+		mLevelTileHeight = levelSizeA;
+		mLevelTileWidth = levelSizeB;
 		
-		for(int column = 0; column < mLevelSize; column ++) {
-			for(int row = 0; row < mLevelSize; row ++) {
+		mLevelTiles = new Tile[mLevelTileWidth][mLevelTileHeight];
+		
+		for(int column = 0; column < mLevelTileWidth; column ++) {
+			for(int row = 0; row < mLevelTileHeight; row ++) {
 				Tile newTile = new Tile(tileSize);
 				newTile.setX(mX + (column * tileSize));
 				newTile.setY(mY + (row * tileSize));
@@ -26,8 +29,8 @@ public class Level implements SceneDrawable {
 	}
 	
 	public void draw(Graphics2D g2d) {
-		for(int column = 0; column < mLevelSize; column ++) {
-			for(int row = 0; row < mLevelSize; row ++) {
+		for(int column = 0; column < mLevelTileWidth; column ++) {
+			for(int row = 0; row < mLevelTileHeight; row ++) {
 				Tile currentTile = mLevelTiles[column][row];
 				currentTile.setX(mX + (column * mTileSize));
 				currentTile.setY(mY + (row * mTileSize));
@@ -51,6 +54,15 @@ public class Level implements SceneDrawable {
 	public int getY() {
 		return mY;
 	}
+	
+	public int getLevelTileWidth(){
+		return mLevelTileWidth;
+	}
+	
+	public int getLevelTileHeight(){
+		return mLevelTileHeight;
+	}
+	
 	
 	public Tile getTile(int column, int row) {
 		return mLevelTiles[column][row];
