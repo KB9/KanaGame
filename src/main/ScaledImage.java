@@ -23,10 +23,6 @@ public class ScaledImage {
 		g2d.drawImage(mImage, x, y, null);
 	}
 	
-	public Image getImage() {
-		return mImage;
-	}
-	
 	public Dimension getSize() {
 		return mImageDimension;
 	}

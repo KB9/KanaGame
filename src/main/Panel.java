@@ -8,17 +8,18 @@ import javax.swing.JPanel;
 public class Panel extends JPanel{
 	
 	private LoopTask mLoop;
-	private Level mLevel;
 	private KeyEventListener mKeyEventListener;
+	private SpriteManager mSpriteManager;
 	
 	public Panel()
 	{
 		setFocusable(true);
 		
-		mLevel = new Level(30, 16);
-		
 		mKeyEventListener = new KeyEventListener();
 		addKeyListener(mKeyEventListener);
+		
+		mSpriteManager = new SpriteManager();
+		mSpriteManager.add(new Level(30, 16));
 
 		mLoop = new LoopTask() {
 
@@ -29,7 +30,7 @@ public class Panel extends JPanel{
 
 			@Override
 			protected void onUpdateLogic() {
-				
+				mSpriteManager.translateCamera(1, 1);
 			}
 
 			@Override
@@ -42,7 +43,7 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mLevel.draw(g2d);
+		mSpriteManager.drawAll(g2d);
 	}
 
 }

@@ -3,7 +3,7 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Sprite {
+public class Sprite implements SceneDrawable {
 	private int x, y, dx, dy;
 	private ScaledImage mImage;
 	private Rectangle r;
