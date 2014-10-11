@@ -32,7 +32,7 @@ public class KeyEventListener implements KeyListener {
 	public void processInput() {
 		for(int i = 0; i < mKeyEventList.size(); i ++) {
 			KeyEvent event = mKeyEventList.removeFirst();
-			// SpriteManager class handles input
+			System.out.println("Char: " + getKeyCharacter(event));
 		}
 	}
 }

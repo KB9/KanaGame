@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class EmployeeEvent {
 
-	private final String[] EVENT_TYPES = {"LETTER", "CALL", "EMAIL", "FACEBOOK", "TWITTER"};
+	public static final String[] EVENT_TYPES = {"LETTER", "CALL", "EMAIL", "FACEBOOK", "TWITTER"};
 	private final String mChosenEvent;
 	
 	public EmployeeEvent() {
