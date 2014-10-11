@@ -8,14 +8,12 @@ import java.util.LinkedList;
 
 public class InputQueue {
 
-	//private static LinkedList<InputXY> mClickQueue;
 	private static ArrayList<InputXY> mXYList;
 	private static ArrayList<InputKey> mPressedKeyList;
 	
 	private KeyEventListener mKeyEventListener;
 	
 	public InputQueue() {
-		//mClickQueue = new LinkedList<InputXY>();
 		mXYList = new ArrayList<InputXY>();
 		mPressedKeyList = new ArrayList<InputKey>();
 		
