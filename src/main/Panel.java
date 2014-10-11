@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
@@ -43,6 +44,7 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.scale(1920.0/Toolkit.getDefaultToolkit().getScreenSize().getWidth(), 1080.0/Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 		mSpriteManager.drawAll(g2d);
 	}
 

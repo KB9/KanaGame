@@ -1,11 +1,14 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 
-public class Sprite implements SceneDrawable {
+import javax.swing.ImageIcon;
+
+public class Sprite {
 	private int x, y, dx, dy;
-	private ScaledImage mImage;
+	private Image mImage;
 	private Rectangle r;
 
 	public Sprite() {
@@ -15,12 +18,12 @@ public class Sprite implements SceneDrawable {
 	
 	public void draw(Graphics2D g){
 		r.setLocation(getX(), getY());
-		mImage.drawImage(g, getX(), getY());
+		g.drawImage(mImage, getX(), getY(), null);
 	}
 
 	public void setImage(String s) {
-		mImage = new ScaledImage(s);
-		r = new Rectangle(getX(), getY(), mImage.getSize().width, mImage.getSize().height);
+		mImage = new ImageIcon(getClass().getResource("images/" + s)).getImage();
+		r = new Rectangle(getX(), getY(), mImage.getWidth(null), mImage.getHeight(null));
 	}
 	
 	public boolean Intersects(Sprite s){
@@ -32,7 +35,7 @@ public class Sprite implements SceneDrawable {
 	public Rectangle getRect(){
 		return r;
 	}
-	public ScaledImage getImage() {
+	public Image getImage() {
 		return mImage;
 	}
 
