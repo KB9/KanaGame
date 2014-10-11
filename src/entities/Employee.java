@@ -1,8 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import main.Sprite;
 
 public class Employee extends Sprite {
