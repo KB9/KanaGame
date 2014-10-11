@@ -20,7 +20,11 @@ public class Panel extends JPanel{
 		mKeyEventListener = new KeyEventListener();
 		addKeyListener(mKeyEventListener);
 		
+<<<<<<< HEAD
 		mLevel = new Level(80, 60, 16);
+=======
+		mLevel = new Level(45, 70, 16);
+>>>>>>> origin/master
 
 		mLoop = new LoopTask() {
 
