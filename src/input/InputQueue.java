@@ -62,6 +62,7 @@ public class InputQueue {
 		public void keyReleased(KeyEvent event) {
 			InputKey key = new InputKey(event);
 			
+			// Iterator removal prevents concurrent modification exceptions...
 			Iterator<InputKey> iterator = mPressedKeyList.iterator();
 			while(iterator.hasNext()) {
 				InputKey pressedKey = iterator.next();
