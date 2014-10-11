@@ -3,6 +3,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
@@ -16,12 +17,13 @@ public class Panel extends JPanel{
 	{
 		setFocusable(true);
 		setPreferredSize(new Dimension(Frame.getSize()));
+		setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
 		
 		mLevel = new Level(30, 16);
 		
 		mKeyEventListener = new KeyEventListener();
 		addKeyListener(mKeyEventListener);
-		
+
 		mLoop = new LoopTask() {
 
 			@Override
