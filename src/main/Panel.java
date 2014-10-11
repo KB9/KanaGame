@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -34,7 +35,9 @@ public class Panel extends JPanel{
 			@Override
 			protected void onProcessInput() {
 				
-				for(InputKey key : mInputQueue.getPressedKeys()) {
+				Iterator<InputKey> iterator = mInputQueue.getPressedKeys().iterator();
+				while(iterator.hasNext()) {
+					InputKey key = iterator.next();
 					switch(key.getArrowKey()) {
 					case 0:
 						mLevel.panCamera(0, -4);
@@ -50,25 +53,6 @@ public class Panel extends JPanel{
 						break;
 					}
 				}
-				/*
-				InputKey key;
-				while((key = mInputQueue.getNextKey()) != null) {
-					switch(key.getKeyCode()) {
-					case 0:
-						mLevel.panCamera(0, -4);
-						break;
-					case 1:
-						mLevel.panCamera(-4, 0);
-						break;
-					case 2:
-						mLevel.panCamera(0, 4);
-						break;
-					case 3:
-						mLevel.panCamera(4, 0);
-						break;
-					}
-				}
-				*/
 				
 				InputXY click;
 				while((click = mInputQueue.getNextXY()) != null) {

@@ -52,8 +52,18 @@ public class InputQueue {
 	private class KeyEventListener implements KeyListener {
 
 		@Override
-		public synchronized void keyPressed(KeyEvent event) {
+		public void keyPressed(KeyEvent event) {
 			InputKey key = new InputKey(event);
+			
+			// Iterator removal prevents concurrent modification exceptions...
+			Iterator<InputKey> iterator = mPressedKeyList.iterator();
+			while(iterator.hasNext()) {
+				InputKey checkKey = iterator.next();
+				if(key.equals(checkKey)) {
+					return;
+				}
+			}
+			
 			key.setPressed(true);
 			addKey(key);
 		}
