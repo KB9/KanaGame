@@ -23,7 +23,7 @@ public class Sprite implements Comparable<Sprite> {
 	}
 
 	public void setImage(String s) {
-		mImage = new ImageIcon(getClass().getResource("images/" + s)).getImage();
+		mImage = new ImageIcon(getClass().getResource("/main/images/" + s)).getImage();
 		r = new Rectangle(getX(), getY(), mImage.getWidth(null), mImage.getHeight(null));
 	}
 	public void setImage(Image m){

@@ -68,23 +68,28 @@ public class Employee extends Sprite {
 			mSalary = 1000;
 			maxSkillLevel = 100;
 		}
+		
+		setDirection(2);
 	}
 	
-	public void setDireciton(int direction) {
+	public void setDirection(int direction) {
 		mDirection = direction;
 		
 		switch(mDirection) {
 		case 0:
-			this.setImage("employee_up.png");
+			setImage("employee_up.png");
 			break;
 		case 1:
-			this.setImage("employee_left.png");
+			setImage("employee_left.png");
 			break;
 		case 2:
-			this.setImage("employee_down.png");
+			setImage("employee_down.png");
 			break;
 		case 3:
-			this.setImage("employee_right.png");
+			setImage("employee_right.png");
+			break;
+		default:
+			setImage("employee_up.png");
 			break;
 		}
 	}

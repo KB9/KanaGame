@@ -42,11 +42,11 @@ public class Level {
 	}
 	
 	public void addBuilding(Buildings a){
-		for(int y = 0; y < a.getBuilding().length; y++){
+		for(int y = 0; y < a.getBuilding()[0].length; y++){
 			for(int x = 0; x < a.getBuilding().length; x++){
 				Tile newTile = new Tile(mTileSize);
 				newTile.setInfo(a.building[x][y].getImage(), a.building[x][y].getSolid());
-				setTile(newTile, x + a.getX(), y + a.getY());		
+				setTile(newTile, y + a.getY(), x + a.getX());		
 			}
 		}
 		

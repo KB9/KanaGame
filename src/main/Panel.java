@@ -15,6 +15,8 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import entities.Employee;
+
 public class Panel extends JPanel{
 	
 	private InputQueue mInputQueue;
@@ -33,7 +35,7 @@ public class Panel extends JPanel{
 		addKeyListener(mInputQueue.getKeyListener());
 		addMouseListener(mInputQueue.getMouseListener());
 		
-		mLevel = new Level(100, 80, 16);
+		mLevel = new Level(150, 100, 16);
 		mLevel.setCameraView(getWidth(), getHeight());
 
 		new LoopTask() {
@@ -63,12 +65,11 @@ public class Panel extends JPanel{
 				Iterator<InputXY> xyIterator = mInputQueue.getXYs().iterator();
 				while(xyIterator.hasNext()) {
 					InputXY xy = xyIterator.next();
-					Sprite sprite = new Sprite();
-					sprite.setImage("employee_down.png");
-					sprite.setX(xy.getX());
-					sprite.setY(xy.getY());
+					Employee employee = new Employee();
+					employee.setX(xy.getX());
+					employee.setY(xy.getY());
 					
-					mLevel.addSprite(sprite);
+					mLevel.addSprite(employee);
 					
 					// This line must be kept so that mouse events don't linger...
 					xyIterator.remove();
