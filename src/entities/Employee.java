@@ -1,9 +1,16 @@
 package entities;
 
+import java.util.Random;
+
 import main.Sprite;
 
 public class Employee extends Sprite {
 
+	private String[] forename = {"a","b","c","d","e"};
+	private String[] surname = {"a","b","c","d","e"};
+	Random random = new Random();
+	
+	private String name;
 	private int mSalary;
 	private int mTwitterSkill, mFacebookSkill, mLetterSkill, mEmailSkill,
 			mPhoneSkill;
@@ -17,83 +24,82 @@ public class Employee extends Sprite {
 	private int mDirection;
 
 	public Employee() {
-		int i = (int) Math.random() * 4;
+		name = forename[(int) (random.nextInt(4))] + " " + surname[(int) (random.nextInt(4))];
+		int i = (int) ( random.nextInt(4) );
 		employeeType = employeeTypes[i];
 
 		if (employeeType == "Novice") {
-			mTwitterSkill = (int) Math.random() * 25 + 1;
-			mFacebookSkill = (int) Math.random() * 25 + 1;
-			mLetterSkill = (int) Math.random() * 25 + 1;
-			mEmailSkill = (int) Math.random() * 25 + 1;
-			mPhoneSkill = (int) Math.random() * 25 + 1;
+			mTwitterSkill = (int) (random.nextInt(25));
+			mFacebookSkill = (int) (random.nextInt(25));
+			mLetterSkill = (int) (random.nextInt(25));
+			mEmailSkill = (int) (random.nextInt(25));
+			mPhoneSkill = (int)( random.nextInt(25));
 			mSalary = 50;
 			maxSkillLevel = 25;
 		}
 
 		if (employeeType == "Amatuer") {
-			mTwitterSkill = (int) Math.random() * 30 + 21;
-			mFacebookSkill = (int) Math.random() * 30 + 21;
-			mLetterSkill = (int) Math.random() * 30 + 21;
-			mEmailSkill = (int) Math.random() * 30 + 21;
-			mPhoneSkill = (int) Math.random() * 30 + 21;
+			mTwitterSkill = (int) (random.nextInt(30) + 20);
+			mFacebookSkill = (int) (random.nextInt(30) + 20);
+			mLetterSkill = (int) (random.nextInt(30) + 20);
+			mEmailSkill = (int) (random.nextInt(30) + 20);
+			mPhoneSkill = (int) (random.nextInt(30) + 20);
 			mSalary = 100;
 			maxSkillLevel = 50;
 		}
 
 		if (employeeType == "Skilled") {
-			mTwitterSkill = (int) Math.random() * 30 + 41;
-			mFacebookSkill = (int) Math.random() * 30 + 41;
-			mLetterSkill = (int) Math.random() * 30 + 41;
-			mEmailSkill = (int) Math.random() * 30 + 41;
-			mPhoneSkill = (int) Math.random() * 30 + 41;
+			mTwitterSkill = (int) (random.nextInt(30) + 40);
+			mFacebookSkill = (int) (random.nextInt(30) + 40);
+			mLetterSkill = (int) (random.nextInt(30) + 40);
+			mEmailSkill = (int) (random.nextInt(30) + 40);
+			mPhoneSkill = (int) (random.nextInt(30) + 40);
 			mSalary = 250;
 			maxSkillLevel = 70;
 		}
 
 		if (employeeType == "Professional") {
-			mTwitterSkill = (int) Math.random() * 35 + 61;
-			mFacebookSkill = (int) Math.random() * 35 + 61;
-			mLetterSkill = (int) Math.random() * 35 + 61;
-			mEmailSkill = (int) Math.random() * 35 + 61;
-			mPhoneSkill = (int) Math.random() * 35 + 61;
+			mTwitterSkill = (int) (random.nextInt(35) + 60);
+			mFacebookSkill = (int) (random.nextInt(35) + 60);
+			mLetterSkill = (int) (random.nextInt(35) + 60);
+			mEmailSkill = (int) (random.nextInt(35) + 60);
+			mPhoneSkill = (int)(random.nextInt(35) + 60);
 			mSalary = 500;
 			maxSkillLevel = 95;
 		}
 		if (employeeType == "Master") {
-			mTwitterSkill = (int) Math.random() * 20 + 81;
-			mFacebookSkill = (int) Math.random() * 20 + 81;
-			mLetterSkill = (int) Math.random() * 20 + 81;
-			mEmailSkill = (int) Math.random() * 20 + 81;
-			mPhoneSkill = (int) Math.random() * 20 + 81;
+			mTwitterSkill = (int) (random.nextInt(20) + 80);
+			mFacebookSkill = (int) (random.nextInt(20) + 80);
+			mLetterSkill = (int) (random.nextInt(20) + 80);
+			mEmailSkill = (int) (random.nextInt(20) + 80);
+			mPhoneSkill = (int) (random.nextInt(20) + 80);
 			mSalary = 1000;
 			maxSkillLevel = 100;
 		}
-		
-		setDirection(2);
 	}
 	
-	public void setDirection(int direction) {
+	public void setDireciton(int direction) {
 		mDirection = direction;
 		
 		switch(mDirection) {
 		case 0:
-			setImage("employee_up.png");
+			this.setImage("employee_up.png");
 			break;
 		case 1:
-			setImage("employee_left.png");
+			this.setImage("employee_left.png");
 			break;
 		case 2:
-			setImage("employee_down.png");
+			this.setImage("employee_down.png");
 			break;
 		case 3:
-			setImage("employee_right.png");
-			break;
-		default:
-			setImage("employee_up.png");
+			this.setImage("employee_right.png");
 			break;
 		}
 	}
 
+	public String getName(){
+		return name;
+	}
 	public int getMaxSkillLevel() {
 		return maxSkillLevel;
 	}

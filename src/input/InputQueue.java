@@ -103,6 +103,7 @@ public class InputQueue {
 
 		@Override
 		public void mouseEntered(MouseEvent event) {
+			addXY(new InputXY(event));
 		}
 
 		@Override
@@ -111,7 +112,7 @@ public class InputQueue {
 
 		@Override
 		public void mousePressed(MouseEvent event) {
-			addXY(new InputXY(event));
+			
 		}
 
 		@Override

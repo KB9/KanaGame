@@ -13,29 +13,33 @@ import java.awt.Toolkit;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import entities.Employee;
 
 public class Panel extends JPanel{
 	
 	private InputQueue mInputQueue;
-	private Level mLevel;
+	public static Level mLevel;
 	private Font mTimeFont = new Font("Calibri", Font.PLAIN, 32);
 	private Image mLogoImage = new ImageIcon(getClass().getResource("images/kanagame_logo.png")).getImage();
+	private ButtonPanel bpanel = new ButtonPanel();
 	
 	public Panel()
 	{
 		setFocusable(true);
 		setSize(Toolkit.getDefaultToolkit().getScreenSize().width,
-				Toolkit.getDefaultToolkit().getScreenSize().height);
+				Toolkit.getDefaultToolkit().getScreenSize().height- 90);
 		setBackground(Color.BLACK);
+		JButton b = new JButton("This is a button");
+		b.setLocation(getWidth() - 50, getHeight()- 200);
+		b.setVisible(true);
+		add(b);
 		
 		mInputQueue = new InputQueue();
 		addKeyListener(mInputQueue.getKeyListener());
 		addMouseListener(mInputQueue.getMouseListener());
 		
-		mLevel = new Level(150, 100, 16);
+		mLevel = new Level(100, 80, 16);
 		mLevel.setCameraView(getWidth(), getHeight());
 
 		new LoopTask() {
@@ -65,20 +69,18 @@ public class Panel extends JPanel{
 				Iterator<InputXY> xyIterator = mInputQueue.getXYs().iterator();
 				while(xyIterator.hasNext()) {
 					InputXY xy = xyIterator.next();
-					Employee employee = new Employee();
-					employee.setX(xy.getX());
-					employee.setY(xy.getY());
-					
-					mLevel.addSprite(employee);
-					
+
 					// This line must be kept so that mouse events don't linger...
 					xyIterator.remove();
+					requestFocus();
 				}
 			}
 
 			@Override
 			protected void onUpdateLogic() {
 				mLevel.sortSprites();
+				ButtonPanel.updates();
+				
 			}
 
 			@Override
@@ -91,6 +93,7 @@ public class Panel extends JPanel{
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		
 		mLevel.drawLevel(g2d);
 		
 		g2d.drawImage(mLogoImage, this.getWidth() - mLogoImage.getWidth(null), 0, null);
@@ -100,6 +103,6 @@ public class Panel extends JPanel{
 		
 		String timeString = GameClock.getHours() + ":" + GameClock.getMinutes() + ":" + GameClock.getSeconds();
 		g2d.drawString("TIME: " + timeString, 10, 25);
+		g2d.scale(getWidth()/960, getHeight()/540);
 	}
-
 }
