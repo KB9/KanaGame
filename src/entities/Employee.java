@@ -13,6 +13,8 @@ public class Employee extends Sprite {
 	private double skill;
 	private int maxSkillLevel;
 	private int id;
+	
+	private int mDirection;
 
 	public Employee() {
 		int i = (int) Math.random() * 4;
@@ -65,6 +67,25 @@ public class Employee extends Sprite {
 			mPhoneSkill = (int) Math.random() * 20 + 81;
 			mSalary = 1000;
 			maxSkillLevel = 100;
+		}
+	}
+	
+	public void setDireciton(int direction) {
+		mDirection = direction;
+		
+		switch(mDirection) {
+		case 0:
+			this.setImage("employee_up.png");
+			break;
+		case 1:
+			this.setImage("employee_left.png");
+			break;
+		case 2:
+			this.setImage("employee_down.png");
+			break;
+		case 3:
+			this.setImage("employee_right.png");
+			break;
 		}
 	}
 

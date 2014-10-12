@@ -8,16 +8,19 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Panel extends JPanel{
 	
 	private InputQueue mInputQueue;
 	private Level mLevel;
-	private Font timeFont = new Font("Calibri", Font.PLAIN, 32);
+	private Font mTimeFont = new Font("Calibri", Font.PLAIN, 32);
+	private Image mLogoImage = new ImageIcon(getClass().getResource("images/kanagame_logo.png")).getImage();
 	
 	public Panel()
 	{
@@ -89,7 +92,11 @@ public class Panel extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		mLevel.drawLevel(g2d);
 		
-		g2d.setFont(timeFont);
+		g2d.drawImage(mLogoImage, this.getWidth() - mLogoImage.getWidth(null), 0, null);
+		
+		g2d.setColor(Color.WHITE);
+		g2d.setFont(mTimeFont);
+		
 		String timeString = GameClock.getHours() + ":" + GameClock.getMinutes() + ":" + GameClock.getSeconds();
 		g2d.drawString("TIME: " + timeString, 10, 25);
 	}
