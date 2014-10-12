@@ -17,6 +17,13 @@ public class Level {
 	private TileTypes t = new TileTypes();
 	private Buildings b = new Buildings();
 
+	/**
+	 * Initialises the level object. Creates and fills an array of tiles which the level
+	 * consists of. Adds a default building which is an array of tiles itself.
+	 * @param levelTileWidth The number of tiles horizontally in the level
+	 * @param levelTileHeight The number of tiles vertically in the level
+	 * @param tileSize The width and height of the tile image in pixels
+	 */
 	public Level(int levelTileWidth, int levelTileHeight, int tileSize) {
 		mTileSize = tileSize;
 		mLevelTileWidth = levelTileWidth;
@@ -52,6 +59,13 @@ public class Level {
 		
 	}
 	
+	/**
+	 * Creates a new camera object which defines the viewport through which the user
+	 * looks at the level. Manipulation of the camera coordinates affects the point of the
+	 * level the user ends up viewing.
+	 * @param viewWidth The width of the viewport (i.e. the screen width)
+	 * @param viewHeight The height of the viewport (i.e. the screen height)
+	 */
 	public void setCameraView(int viewWidth, int viewHeight) {
 		mCamera = new Camera(viewWidth, viewHeight, mLevelTileWidth * mTileSize, mLevelTileHeight * mTileSize);
 	}
@@ -97,11 +111,13 @@ public class Level {
 	}
 	
 	private void clipDrawSprites(Graphics2D g2d) {
+		// Defines the bounding box for the clipping boundaries
 		int viewLeft = mCamera.getX();
 		int viewTop = mCamera.getY();
 		int viewRight= mCamera.getX() + mCamera.getViewWidth();
 		int viewBottom = mCamera.getY() + mCamera.getViewHeight();
 		
+		// Loops through each sprite, checks if it's in the viewport and updates/draws it
 		for(Sprite sprite : mSpriteManager.getSprites()) {
 			int spriteLeft = sprite.getLevelX();
 			int spriteTop = sprite.getLevelY();
@@ -114,6 +130,10 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * Updates the sprite's position based on the camera viewport and its position within
+	 * the level.
+	 */
 	private void updateSpritePosition() {
 		for(Sprite sprite : mSpriteManager.getSprites()) {
 			sprite.setX(-mCamera.getX() + sprite.getLevelX());
@@ -164,12 +184,23 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * Adds a sprite to the level by assigning level coordinates to it and adding it to the
+	 * sprite manager. The sprite manager is an ArrayList of Sprite objects, used to keep
+	 * track of all the sprites within the level.
+	 * @param sprite The sprite to add to the level.
+	 */
 	public void addSprite(Sprite sprite) {
 		sprite.setLevelX(mCamera.getX() + sprite.getX());
 		sprite.setLevelY(mCamera.getY() + sprite.getY());
 		mSpriteManager.add(sprite);
 	}
 	
+	/**
+	 * Sorts the sprites within the ArrayList into y-ascending order, so that sprites drawn
+	 * below other sprites are always drawn first irrespective of the order they were added
+	 * to the sprite manager. 
+	 */
 	public void sortSprites() {
 		mSpriteManager.sort();
 	}
@@ -182,12 +213,25 @@ public class Level {
 		return mLevelTileHeight;
 	}
 	
+	/**
+	 * Overwrites the tile object at the specified tile column and row indexes. Checks that
+	 * the indexes are valid before overwriting.
+	 * @param tile The new tile to overwrite the old.
+	 * @param column The column index at which the new tile should be placed.
+	 * @param row The row index at which the new tile should be placed.
+	 */
 	public void setTile(Tile tile, int column, int row) {
 		if(column >= 0 && column < mLevelTileWidth && row >= 0 && row < mLevelTileHeight) {
 			mLevelTiles[column][row] = tile;
 		}
 	}
 	
+	/**
+	 * Gets a tile at the specified column and row indexes as long as they are valid indexes.
+	 * @param column The column index at which the tile is located.
+	 * @param row The row index at which the tile is located.
+	 * @return Tile object
+	 */
 	public Tile getTile(int column, int row) {
 		if(column >= 0 && column < mLevelTileWidth && row >= 0 && row < mLevelTileHeight) {
 			return mLevelTiles[column][row];
