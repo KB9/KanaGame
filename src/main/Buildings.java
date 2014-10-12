@@ -38,10 +38,7 @@ public class Buildings extends Tile{
 	public Buildings(){
 		x = 15;
 		y = 15;
-		
-		for (int u = 0; u < 28; u++){
-			System.out.println(tileMap[u].length);
-		}
+
 		for(int b = 0; b < building[0].length; b++){
 			for(int a = 0; a < building.length; a++){
 				building[a][b] = new Tile();

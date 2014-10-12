@@ -2,7 +2,7 @@ package main;
 
 public class TileTypes extends Tile{
 	
-	public static Tile[] types = new Tile[13];
+	public static Tile[] types = new Tile[14];
 	
 	public TileTypes(){
 		for(int i = 0; i < types.length; i++){
