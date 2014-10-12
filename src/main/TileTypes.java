@@ -2,7 +2,8 @@ package main;
 
 public class TileTypes extends Tile{
 	
-	public static Tile[] types = new Tile[13];
+	public static Tile[] types = new Tile[15];
+	
 	
 	public TileTypes(){
 		for(int i = 0; i < types.length; i++){
@@ -21,5 +22,7 @@ public class TileTypes extends Tile{
 		types[10].setInfo("corner_floor_tile.png", false);
 		types[11].setInfo("horizontal_window.png", false);
 		types[12].setInfo("vertical_window.png", false);
+		types[13].setInfo("outdoor_tile.png", false);
+		types[14].setInfo("yellow_carpet.png", false);
 	}
 }
