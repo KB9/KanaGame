@@ -28,13 +28,9 @@ public class Level {
 		fh = new FileHandling();
 		indices = fh.readFile();
 		
-		
-		
 		for(int column = 0; column < mLevelTileWidth; column ++) {
 			for(int row = 0; row < mLevelTileHeight; row ++) {
 				Tile newTile = new Tile(tileSize);
-				//newTile.setX(-mCamera.getX() + (column * tileSize));
-				//newTile.setY(-mCamera.getY() + (row * tileSize));
 				newTile.setImage(TileTypes.types[indices[column][row]].getImage());
 				newTile.setSolid(false);
 				
@@ -100,6 +96,31 @@ public class Level {
 		}
 	}
 	
+	private void clipDrawSprites(Graphics2D g2d) {
+		int viewLeft = mCamera.getX();
+		int viewTop = mCamera.getY();
+		int viewRight= mCamera.getX() + mCamera.getViewWidth();
+		int viewBottom = mCamera.getY() + mCamera.getViewHeight();
+		
+		for(Sprite sprite : mSpriteManager.getSprites()) {
+			int spriteLeft = sprite.getLevelX();
+			int spriteTop = sprite.getLevelY();
+			int spriteRight = (int)(sprite.getLevelX() + sprite.getRect().getWidth());
+			int spriteBottom = (int)(sprite.getLevelY() + sprite.getRect().getHeight());
+			if(spriteLeft >= viewLeft || spriteTop >= viewTop || spriteRight <= viewRight || spriteBottom <= viewBottom) {
+				updateSpritePosition();
+				sprite.draw(g2d);
+			}
+		}
+	}
+	
+	private void updateSpritePosition() {
+		for(Sprite sprite : mSpriteManager.getSprites()) {
+			sprite.setX(-mCamera.getX() + sprite.getLevelX());
+			sprite.setY(-mCamera.getY() + sprite.getLevelY());
+		}
+	}
+	
 	/**
 	 * Draws the tiles and sprites within the screen view in the level. Only works if
 	 * a camera view has been specified beforehand.
@@ -108,7 +129,7 @@ public class Level {
 	public void drawLevel(Graphics2D g2d) {
 		if(mCamera != null) {
 			clipDrawTiles(g2d);
-			mSpriteManager.drawSprites(g2d);
+			clipDrawSprites(g2d);
 		}
 		else {
 			System.out.println("DEBUG ERROR: Level > Camera view dimensions not specified!");
@@ -144,7 +165,13 @@ public class Level {
 	}
 	
 	public void addSprite(Sprite sprite) {
+		sprite.setLevelX(mCamera.getX() + sprite.getX());
+		sprite.setLevelY(mCamera.getY() + sprite.getY());
 		mSpriteManager.add(sprite);
+	}
+	
+	public void sortSprites() {
+		mSpriteManager.sort();
 	}
 	
 	public int getLevelTileWidth(){

@@ -60,12 +60,21 @@ public class Panel extends JPanel{
 				Iterator<InputXY> xyIterator = mInputQueue.getXYs().iterator();
 				while(xyIterator.hasNext()) {
 					InputXY xy = xyIterator.next();
+					Sprite sprite = new Sprite();
+					sprite.setImage("employee_down.png");
+					sprite.setX(xy.getX());
+					sprite.setY(xy.getY());
 					
+					mLevel.addSprite(sprite);
+					
+					// This line must be kept so that mouse events don't linger...
+					xyIterator.remove();
 				}
 			}
 
 			@Override
 			protected void onUpdateLogic() {
+				mLevel.sortSprites();
 			}
 
 			@Override

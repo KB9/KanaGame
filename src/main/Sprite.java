@@ -6,8 +6,9 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Sprite {
+public class Sprite implements Comparable<Sprite> {
 	private int x, y, dx, dy;
+	private int levelX, levelY;
 	private Image mImage;
 	private Rectangle r;
 
@@ -58,10 +59,31 @@ public class Sprite {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public void setLevelX(int x) {
+		levelX = x;
+	}
+	
+	public void setLevelY(int y) {
+		levelY = y;
+	}
+	
+	public int getLevelX() {
+		return levelX;
+	}
+	
+	public int getLevelY() {
+		return levelY;
+	}
 
 	public void Move(int dx, int dy) {
 		x += dx;
 		y += dy;
 
+	}
+
+	@Override
+	public int compareTo(Sprite sprite) {
+		return this.getY() - sprite.getY();
 	}
 }

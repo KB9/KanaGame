@@ -1,7 +1,7 @@
 package main;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LevelSpriteManager {
 
@@ -15,16 +15,15 @@ public class LevelSpriteManager {
 		mSpriteList.add(sprite);
 	}
 	
-	public void remove(Sprite sprite) {
-		mSpriteList.remove(sprite);
+	public ArrayList<Sprite> getSprites() {
+		return mSpriteList;
 	}
 	
-	public void drawSprites(Graphics2D g2d) {
-		for(int i = 0; i < mSpriteList.size(); i ++) {
-			Sprite sprite = mSpriteList.get(i);
-			int x = sprite.getX();
-			int y = sprite.getY();
-			g2d.drawImage(sprite.getImage(), x, y, null);
-		}
+	public void sort() {
+		Collections.sort(mSpriteList);
+	}
+	
+	public void remove(Sprite sprite) {
+		mSpriteList.remove(sprite);
 	}
 }
